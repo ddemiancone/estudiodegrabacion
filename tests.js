@@ -61,7 +61,7 @@ const clientes = [
 			},
 			{
 				duracion: 3,
-				fecha: '25/10/2019'
+				fecha: '26/10/2019'
 			}
 		],
 		pagos: [
@@ -102,12 +102,56 @@ const clientes = [
 				monto: 600
 			}
 		]
+	},
+	{
+		nombre: 'La flor del trigo',
+		telefono: '1145544554',
+		grabaciones: [
+			{
+				fecha: '16/11/2019',
+				duracion: 3
+			}
+		],
+		pagos: [
+			{
+				fecha: '17/11/2019',
+				monto: 85
+			},
+			{
+				fecha: '20/12/2019',
+				monto: 120
+			}
+		]
+	},
+	{
+		nombre: 'Asus MotherRock',
+		telefono: '1187988798',
+		grabaciones: [
+			{
+				fecha: '03/03/2020',
+				duracion: 4
+			},
+			{
+				fecha: '10/03/2020',
+				duracion: 4.5
+			},
+		],
+		pagos: [
+			{
+				fecha: '03/03/2020',
+				monto: 400
+			},
+			{
+				fecha: '10/03/2020',
+				monto: 450
+			}
+		]
 	}
 ]
-
 
 const misDeudores = obtenerDeudores(clientes)
 const mejoresClientes = obtenerMejoresCincoClientes(clientes)
 const misFechas = listaDeFechas(clientes)
-const fechasObtenidas = obtenerGrabacionesPorFecha(misFechas, 2, 2020)
-const facturacionEnXMes = obtenerFacturacionEn(clientes, '05', '2019')
+const fechasObtenidas = obtenerGrabacionesPorMes(misFechas, 2, 2020)
+const facturacionEnXMes = obtenerFacturacionEn(clientes, 5, 2019)
+const promedioPorSemana = sacarPromedio(clientes)

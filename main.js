@@ -1,11 +1,11 @@
 const COSTO_POR_HORA = 100 
 
-function obtenerDeudores(clientes) {
+function obtenerDeudores(listaDeClientes) {
 	deudores = []
 	clientesEnRegla = []
 
-	for (let i = 0; i < clientes.length; i++) { // recorremos la lista de clientes
-		const cliente = clientes[i]
+	for (let i = 0; i < listaDeClientes.length; i++) { // recorremos la lista de clientes
+		const cliente = listaDeClientes[i]
 
 		const gastoTotalDelCliente = obtenerGastoDelCliente(cliente)
 			
@@ -46,16 +46,11 @@ function obtenerDeudores(clientes) {
 	return deudores
 }
 
-
-function comparar(a, b) {
-	return b.gasto - a.gasto
-}
-
-function obtenerMejoresCincoClientes(clientes) {
+function obtenerMejoresCincoClientes(listaDeClientes) {
 	const gastosDelCliente = []
 
-	for (let i = 0; i < clientes.length; i++) {
-		const cliente = clientes[i]
+	for (let i = 0; i < listaDeClientes.length; i++) {
+		const cliente = listaDeClientes[i]
 
 		gastosDelCliente.push({
 			nombre: cliente.nombre,
@@ -65,10 +60,10 @@ function obtenerMejoresCincoClientes(clientes) {
 		const mejoresCinco = gastosDelCliente.sort(comparar)
 	}
 
-	//const mejoresCinco = gastosDelCliente.slice(0, 4)
+	const mejoresCinco = gastosDelCliente.slice(0, 5)
 
-	console.log(gastosDelCliente)
-	return gastosDelCliente
+	console.log(mejoresCinco)
+	return mejoresCinco
 }	
 
 /* LLevar registro contable del lugar, poder acceder rapidamente a la
@@ -81,8 +76,8 @@ cantidad de grabaciones hechas por ejemplo en febrero de 2020.
 function listaDeFechas(listaDeClientes) {
 	fechasEnLista = [] // declaro array vacio para despues llenarlo con las fechas
 
-	for(let i = 0; i < clientes.length; i++) {
-		const cliente = clientes[i]
+	for(let i = 0; i < listaDeClientes.length; i++) {
+		const cliente = listaDeClientes[i]
 
 		for(let j = 0; j < cliente.grabaciones.length; j++) {
 			const grabacion = cliente.grabaciones[j]
@@ -96,42 +91,72 @@ function listaDeFechas(listaDeClientes) {
 
 function obtenerFacturacionEn(listaDeClientes, month, year) {
 	let facturacion = 0
-	for (i = 0; i < clientes.length; i++) {
-		const cliente = clientes[i]
+	for (i = 0; i < listaDeClientes.length; i++) {
+		const cliente = listaDeClientes[i]
 
 		for (j = 0; j < cliente.pagos.length; j++) {
 			const pago = cliente.pagos[j]
 
-			if (pago.fecha.includes(month) && pago.fecha.includes(year)) {
+			aBuscar = obtenerFechaABuscar(month, year)
+
+			if (pago.fecha.includes(aBuscar)) {	
 				facturacion = facturacion + pago.monto
 			}
 		}
 	}
 
-	console.log('en ' + month + '/' + year + ' se facturo ' + facturacion)
+	if (facturacion < 1) {
+		console.log('En este mes no hubo facturaciones')
+	} else 	console.log('en ' + month + '/' + year + ' se facturaron ' + '$' + facturacion)
+
 	return facturacion
 }
 
-function obtenerFechaABuscar(month, year) {
-	if (month > 9) {
-		return month + '/' + year
-	} else return '0' + month + '/' + year
+
+/* para obtener un promedio de grabaciones de la proxima semana debemos
+	- sumar las grabaciones de TODOS los meses
+	- dividir dicho resultado por la cantidad de meses que haya
+	- dividir este resultado por cuatro (cantidad de semanas en un mes)
+*/
+
+function sacarPromedio(listaDeClientes) {
+	let promedio = 0
+	const grabacionesTotales = obtenerGrabacionesTotales(clientes) // 32	
+	const listaDeMeses = obtenerListaDeMeses(misFechas) // 8
+	let promedioGrabXMes = 0
+
+	promedioGrabXMes = grabacionesTotales / listaDeMeses.length // 4
+
+	promedio = promedioGrabXMes / 4 // 1
+
+	console.log('El promedio de grabaciones por semana es de ' + promedio)
+	return promedio
 }
 
-function obtenerGrabacionesPorFecha(listaDeFechas, month, year) {
-	grabacionesPorFecha = []
+// EXTRA:
+
+function obtenerGrabacionesPorMes(listaDeFechas, month, year) {
+	grabacionesPorMes = []
 	for(let i = 0; i < listaDeFechas.length; i++) {
 		fecha = listaDeFechas[i]
 		aBuscar = obtenerFechaABuscar(month, year)
 
 		if (fecha.includes(aBuscar)) {
-			grabacionesPorFecha.push(fecha)
+			grabacionesPorMes.push(fecha)
 		}
 	}
 
-	console.log('Se realizaron ' + grabacionesPorFecha.length + ' grabaciones en ' + month + '/' + year)
-	return grabacionesPorFecha
+	if (grabacionesPorMes.length < 1) {
+		console.log('En este mes no se realizaron grabaciones')
+	} else console.log('Se realizaron ' + grabacionesPorMes.length + ' grabaciones en ' + month + '/' + year)
+
+	return grabacionesPorMes
 }
+
+
+
+
+
 
 
 
