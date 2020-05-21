@@ -121,13 +121,13 @@ function obtenerFacturacionEn(listaDeClientes, month, year) {
 
 function sacarPromedio(listaDeClientes) {
 	let promedio = 0
-	const grabacionesTotales = obtenerGrabacionesTotales(clientes) // 32	
-	const listaDeMeses = obtenerListaDeMeses(misFechas) // 8
+	const grabacionesTotales = obtenerGrabacionesTotales(clientes) // 13
+	const listaDeMeses = obtenerListaDeMeses(misFechas) // 9
 	let promedioGrabXMes = 0
 
 	promedioGrabXMes = grabacionesTotales / listaDeMeses.length // 4
 
-	promedio = promedioGrabXMes / 4 // 1
+	promedio = promedioGrabXMes / 4 // 0.36
 
 	console.log('El promedio de grabaciones por semana es de ' + promedio)
 	return promedio

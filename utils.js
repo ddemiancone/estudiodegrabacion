@@ -24,6 +24,7 @@ function comparar(a, b) {
 }
 
 function obtenerGrabacionesTotales(listaDeClientes) {
+	const listaDeGrabaciones = []
 	let grabacionesTotales = 0
 
 	for (i = 0; i < listaDeClientes.length; i++) {
@@ -32,10 +33,12 @@ function obtenerGrabacionesTotales(listaDeClientes) {
 		for (j = 0; j < cliente.grabaciones.length; j++) {
 			const grabacion = cliente.grabaciones[j]
 
-			grabacionesTotales += grabacion.duracion
+
+			listaDeGrabaciones.push(grabacion)
 		}
 	}
 
+	grabacionesTotales = listaDeGrabaciones.length
 	return grabacionesTotales
 }
 
